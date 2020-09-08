@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
-from secret_files.secret_file import SECRET_KEY
+from secret_files.secret_file import *
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mysite.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -130,3 +132,15 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+
+AUTHENTICATE_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'account.authentication.EmailAuthBackend',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.google.GoogleOAuth2',
+]
+
+
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
